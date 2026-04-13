@@ -24,7 +24,7 @@ jobs:
       - name: Start App
         run: |
           echo "Starting app..."
-          node index.js &
+          npx ts-node index.ts &
           sleep 5
 
       - name: Test App
