@@ -34,3 +34,8 @@ jobs:
       - name: Show Preview URL
         run: |
           echo "Preview running at: http://localhost:3000"
+      
+      - name: Trigger Render Deploy
+        run: |
+          echo "Deploying to Render..."
+          curl -X POST  ${{ secrets.RENDER_DEPLOY_HOOK }}
