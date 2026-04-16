@@ -32,11 +32,14 @@ jobs:
         run: |
           curl --retry 5 --retry-delay 5  http://localhost:3000
 
+      - name: Set Preview Name
+        run: echo "PREVIEW_NAME=preview-pr-${{ github.event.number }}" >> $GITHUB_ENV
+      
       - name: Show Preview URL
-        run: |
-          echo "Preview running at: http://localhost:3000"
+        run: echo "Preview will be at https://$PREVIEW_NAME.onrender.com"
       
       - name: Trigger Render Deploy
         run: |
           echo "Deploying to Render..."
           curl -X POST  ${{ secrets.RENDER_DEPLOY_HOOK }}
+      
