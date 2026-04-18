@@ -1,58 +1,70 @@
-# Atlas IDP 🚀
+# Atlas IDP 🚀  
 ### From Code to Cloud — Instantly
 
-Atlas IDP is an Internal Developer Platform that enables developers to create, deploy, and manage applications with built-in GitHub automation, CI/CD, and scalable infrastructure.
+Atlas IDP is an Internal Developer Platform (IDP) that enables developers to create, deploy, and manage applications with built-in GitHub automation, CI/CD pipelines, and scalable infrastructure.
+
+---
+
+## 🚧 Status
+
+Actively building Atlas IDP with core functionality implemented. Currently expanding into cloud deployment (AWS), CI/CD enhancements, and observability features.
 
 ---
 
 ## ✨ Features
 
-- 🚀 One-click project creation
-- 📦 Automatic GitHub repository creation
-- 🧩 Template-based project scaffolding (TypeScript Node app)
-- ⚙️ Backend automation using Node.js
-- 🎨 Frontend UI built with React + TypeScript
+- 🚀 One-click project creation  
+- 📦 Automated GitHub repository creation  
+- 🧩 Template-based project scaffolding (TypeScript Node app)  
+- ⚙️ Backend automation using Node.js  
+- 🎨 Developer-friendly UI built with React + TypeScript  
 
 ---
 
 ## 🏗️ Architecture
 
-Frontend (React) → Backend (Node.js) → GitHub API → Repo Creation → Template Push
+Frontend (React) → Backend (Node.js) → GitHub API → Repository Creation → Template Push → CI/CD Pipeline
 
 ---
 
-## 🧪 How it works
+## 🔄 Workflow
 
-1. User enters project name
-2. Clicks "Create Project"
-3. Backend:
-   - Creates GitHub repo
-   - Clones repo
-   - Copies template
-   - Pushes code
-4. Repo is ready with working app
+1. User enters project name  
+2. Clicks **Create Project**  
+3. Backend service:
+   - Creates a GitHub repository  
+   - Clones the repository  
+   - Copies predefined template  
+   - Pushes initial code  
+4. Repository is ready with a working application and CI/CD setup  
 
 ---
 
 ## 🛠️ Tech Stack
 
-- React + TypeScript
-- Node.js + Express
-- GitHub REST API
-- simple-git
-- dotenv
+- React + TypeScript (Frontend)  
+- Node.js + Express (Backend)  
+- GitHub REST API  
+- simple-git  
+- dotenv  
 
 ---
 
 ## 🚀 Future Enhancements
 
-- Preview environments (per PR)
-- DevSecOps pipeline (Trivy, SonarQube)
-- AWS deployment (ECS/Fargate)
-- Cost dashboard & monitoring
+- Preview environments for each PR  
+- DevSecOps pipeline (Trivy, SonarQube)  
+- AWS deployment (ECS / Fargate)  
+- Monitoring & cost visibility dashboard  
+
+---
+
+## 🎯 Vision
+
+To build a self-service platform that improves developer productivity by automating infrastructure, deployment, and workflows.
 
 ---
 
 ## 👩‍💻 Author
 
-Built as part of Platform Engineering portfolio.
+Built as part of a Platform Engineering portfolio.
