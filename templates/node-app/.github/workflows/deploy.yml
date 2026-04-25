@@ -30,7 +30,7 @@ jobs:
           sleep 10
 
       - name: Test App
-        run: curl http://localhost:5000
+        run: curl http://localhost:3000
 
       # 🚀 NEW PART (REAL DEVOPS)
       - name: Configure AWS
