@@ -27,7 +27,7 @@ jobs:
       - name: Run App (test)
         run: |
           node dist/index.js &
-          sleep 5
+          sleep 10
 
       - name: Test App
         run: curl http://localhost:5000
