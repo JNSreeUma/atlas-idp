@@ -13,14 +13,68 @@ const git = simpleGit();
 app.use(cors());
 app.use(express.json());
 
+// app.post('/create-project', async (req: Request, res: Response) => {
+//   const { repoName } = req.body;
+
+//   try {
+//     // 1. Create GitHub repo (already working)
+//     const response = await axios.post(
+//       'https://api.github.com/user/repos',
+//       { name: repoName, private: false },
+//       {
+//         headers: {
+//           Authorization: `token ${process.env.GITHUB_TOKEN}`
+//         }
+//       }
+//     );
+
+//    const repoUrl = response.data.clone_url.replace(
+//   'https://',
+//   `https://${process.env.GITHUB_TOKEN}@`
+// );
+
+//     // 2. Clone repo locally
+//     const projectPath = path.join(__dirname, `../temp/${repoName}`);
+//     const git = simpleGit();
+
+//     await git.clone(repoUrl, projectPath);
+
+//     // 3. Copy template files
+//     const templatePath = path.join(__dirname, `../templates/node-app`);
+
+//     fs.cpSync(templatePath, projectPath, { recursive: true });
+
+//     // 4. Push to GitHub
+//     const repoGit = simpleGit(projectPath);
+
+//     await repoGit.add('.');
+//     await repoGit.commit('Initial commit from Atlas 🚀');
+//     await repoGit.push('origin', 'main');
+
+//     res.json({
+//       message: "Repo created + code pushed 🚀",
+//       repoUrl
+//     });
+
+//   } catch (error: any) {
+//     console.error(error);
+
+//     res.status(500).json({
+//       message: "Failed to create project"
+//     });
+//   }
+// });
 app.post('/create-project', async (req: Request, res: Response) => {
   const { repoName } = req.body;
 
   try {
-    // 1. Create GitHub repo (already working)
+    // 1. Create GitHub repo
     const response = await axios.post(
       'https://api.github.com/user/repos',
-      { name: repoName, private: false },
+      {
+        name: repoName,
+        private: false
+      },
       {
         headers: {
           Authorization: `token ${process.env.GITHUB_TOKEN}`
@@ -28,40 +82,43 @@ app.post('/create-project', async (req: Request, res: Response) => {
       }
     );
 
-   const repoUrl = response.data.clone_url.replace(
-  'https://',
-  `https://${process.env.GITHUB_TOKEN}@`
-);
+    const repoUrl = response.data.clone_url;
 
-    // 2. Clone repo locally
+    // 2. Define local project path
     const projectPath = path.join(__dirname, `../temp/${repoName}`);
-    const git = simpleGit();
 
+    //clean if already exists
+    if (fs.existsSync(projectPath)){
+      fs.rmSync(projectPath, { recursive: true, force: true});
+    }
+
+    // 3. Clone template repo
     await git.clone(repoUrl, projectPath);
 
-    // 3. Copy template files
+    // await simpleGit().clone(
+    //   "https://github.com/jnsreeuma/templates-node-app.git",
+    //   projectPath
+    // );
+    // 4. Copy template files
     const templatePath = path.join(__dirname, `../templates/node-app`);
-
     fs.cpSync(templatePath, projectPath, { recursive: true });
 
-    // 4. Push to GitHub
+    // 5. Push to GitHub
     const repoGit = simpleGit(projectPath);
 
-    await repoGit.add('.');
-    await repoGit.commit('Initial commit from Atlas 🚀');
-    await repoGit.push('origin', 'main');
+    await repoGit.add(".");
+    await repoGit.commit("Initial commit from Atlas IDP 🚀");
+    await repoGit.push("origin", "main");
 
     res.json({
-      message: "Repo created + code pushed 🚀",
-      repoUrl
+      success: true,
+      message: "Project created & deployed 🚀",
+      repo: response.data.html_url,
     });
 
-  } catch (error: any) {
+  } catch (error) {
     console.error(error);
-
-    res.status(500).json({
-      message: "Failed to create project"
-    });
+    res.status(500).json({ success: false, message: "Something failed ❌" });
   }
 });
 

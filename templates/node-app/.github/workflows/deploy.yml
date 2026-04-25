@@ -1,5 +1,4 @@
-name: Preview Deployment
-
+name: Atlas CLI
 on:
   pull_request:
   push:
@@ -37,9 +36,4 @@ jobs:
       
       - name: Show Preview URL
         run: echo "Preview will be at https://$PREVIEW_NAME.onrender.com"
-      
-      - name: Trigger Render Deploy
-        run: |
-          echo "Deploying to Render..."
-          curl -X POST  ${{ secrets.RENDER_DEPLOY_HOOK }}
       
