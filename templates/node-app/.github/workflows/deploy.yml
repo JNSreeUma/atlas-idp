@@ -46,13 +46,13 @@ jobs:
           | docker login --username AWS --password-stdin 331608078139.dkr.ecr.ap-southeast-2.amazonaws.com
 
       - name: Build Docker Image
-        run: docker build -t atlas-app .
+        run: docker build -t $ECR_REPO:latest .
 
       - name: Tag Image
-        run: docker tag atlas-app:latest 331608078139.dkr.ecr.ap-southeast-2.amazonaws.com/atlas-app:latest
+        run: docker tag $ECR_REPO:latest 331608078139.dkr.ecr.ap-southeast-2.amazonaws.com/$ECR_REPO:latest
 
       - name: Push to ECR
-        run: docker push 331608078139.dkr.ecr.ap-southeast-2.amazonaws.com/atlas-app:latest
+        run: docker push 331608078139.dkr.ecr.ap-southeast-2.amazonaws.com/$ECR_REPO:latest
 
       - name: Deploy to ECS
         run: |
