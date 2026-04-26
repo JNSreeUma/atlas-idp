@@ -2,11 +2,15 @@ import express from 'express';
 
 const app = express();
 
+const PORT = Number(process.env.PORT) || 3000;
+
 app.get('/', (req, res) => {
-  res.send("Hello from Atlas TS Day 21 Automation test 9🚀");
+  res.send("Hello from Atlas TS Day 21 Automation test 12🚀");
 });
 
-const PORT = parseInt(process.env.PORT || "3000", 10);
+app.get("/health", (req, res) => {
+  res.status(200).send("OK");
+});
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`App running on port ${PORT}`);
