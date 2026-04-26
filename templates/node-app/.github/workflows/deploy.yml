@@ -13,6 +13,10 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
 
+    env: 
+      SERVICE_NAME: ${{ github.event.repository.name }}
+      CLUSTER_NAME: atlas-cluster
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -99,7 +103,7 @@ jobs:
       - name: Deploy to ECS
         run: |
           aws ecs update-service \
-          --cluster atlas-cluster \
+          --cluster $CLUSTER_NAME \
           --service atlas-service \
           --task-definition $TASK_DEF_ARN \
           --force-new-deployment
