@@ -60,9 +60,31 @@ jobs:
 
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
+      
+      - name: Get current task definition
+        run: |
+         aws ecs describe-task-definition \
+           --task-definition atlas-task \
+           --query taskDefinition > task-def.json
+      
+      - name: Clean task definition
+        run: |
+          jq 'del(
+            .taskDefinitionArn,
+            .revision,
+            .status,
+            .requiresAttributes,
+            .compatibilities,
+            .registeredAt,
+            .registeredBy
+          )' task-def.json > clean-task-def.json
+
+      - name: Update image in task definition
+        run: |
+          jq '.containerDefinitions[0].image = "331608078139.dkr.ecr.ap-southeast-2.amazonaws.com/atlas-app:'"$IMAGE_TAG"'"' \
+          clean-task-def.json > new-task-def.json
 
       - name: Register new task definition
-        id: task-def
         run: |
           TASK_DEF_ARN=$(aws ecs register-task-definition \
           --cli-input-json file://new-task-def.json \
