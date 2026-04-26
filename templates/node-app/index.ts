@@ -5,7 +5,7 @@ const app = express();
 const PORT = Number(process.env.PORT) || 3000;
 
 app.get('/', (req, res) => {
-  res.send("Hello from Atlas TS Day 22 Automation test Final Happy ending love you ... 🚀");
+  res.send("Hello from Atlas TS Day 22 OIDC Test-1 🚀");
 });
 
 app.get("/health", (req, res) => {
