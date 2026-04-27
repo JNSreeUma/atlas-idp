@@ -93,8 +93,11 @@ app.post('/create-project', async (req: Request, res: Response) => {
     }
 
     // 3. Clone template repo
-    await git.clone(repoUrl, projectPath);
-
+    // await git.clone(repoUrl, projectPath);
+     const repoGit = simpleGit(projectPath);
+     
+     await repoGit.init();
+     await repoGit.addRemote('origin', repoUrl);
     // await simpleGit().clone(
     //   "https://github.com/jnsreeuma/templates-node-app.git",
     //   projectPath
@@ -104,7 +107,7 @@ app.post('/create-project', async (req: Request, res: Response) => {
     fs.cpSync(templatePath, projectPath, { recursive: true });
 
     // 5. Push to GitHub
-    const repoGit = simpleGit(projectPath);
+    // const repoGit = simpleGit(projectPath);
 
     await repoGit.add(".");
     await repoGit.commit("Initial commit from Atlas IDP 🚀");
