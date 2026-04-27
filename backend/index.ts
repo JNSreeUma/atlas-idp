@@ -86,12 +86,14 @@ app.post('/create-project', async (req: Request, res: Response) => {
 
     // 2. Define local project path
     const projectPath = path.join(__dirname, `../temp/${repoName}`);
+    const templatePath = path.join(__dirname, `../templates/node-app`);
+   
 
     //clean if already exists
     if (fs.existsSync(projectPath)){
       fs.rmSync(projectPath, { recursive: true, force: true});
     }
-
+ fs.cpSync(templatePath, projectPath, { recursive: true });
     // 3. Clone template repo
     // await git.clone(repoUrl, projectPath);
      const repoGit = simpleGit(projectPath);
@@ -103,8 +105,7 @@ app.post('/create-project', async (req: Request, res: Response) => {
     //   projectPath
     // );
     // 4. Copy template files
-    const templatePath = path.join(__dirname, `../templates/node-app`);
-    fs.cpSync(templatePath, projectPath, { recursive: true });
+    
 
     // 5. Push to GitHub
     // const repoGit = simpleGit(projectPath);
