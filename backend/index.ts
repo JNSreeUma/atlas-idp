@@ -113,7 +113,7 @@ app.post('/create-project', async (req: Request, res: Response) => {
     res.json({
       success: true,
       message: "Project created & deployment started 🚀",
-      repo: response.data.html_url,
+      repoUrl: response.data.html_url,
       appUrl:'http://atlas-alb-1470728302.ap-southeast-2.elb.amazonaws.com/'
     });
 
